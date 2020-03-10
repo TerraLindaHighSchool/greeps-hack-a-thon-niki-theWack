@@ -33,18 +33,20 @@ public class Greep extends Creature
     public void act()
     {
         super.act();   // do not delete! leave as first statement in act().
-        if (carryingTomato()) {
-            if (atShip()) {
-                dropTomato();
+        if (carryingTomato()) 
+        {
+           if (atShip()) {
+                    dropTomato();
+                }
+                else {
+                    turnHome();
+                    move();
+                   
+                }
             }
             else {
-                turnHome();
                 move();
-            }
-        }
-        else {
-            move();
-            checkFood();
+                checkFood();
         }
     }
     
