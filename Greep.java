@@ -33,21 +33,36 @@ public class Greep extends Creature
     public void act()
     {
         super.act();   // do not delete! leave as first statement in act().
-        if (carryingTomato()) 
+        
+         if (carryingTomato()) 
         {
-           if (atShip()) {
-                    dropTomato();
-                }
-                else {
-                    turnHome();
-                    move();
-                   
-                }
+            if(atShip()) 
+            {
+                dropTomato();
+                move();                
             }
-            else {
-                move();
+            else 
+            {
+                if(randomChance(10))
+                {
+                    turnHome();
+                    atLake();
+                }
+                atLake();
                 checkFood();
+                atLake();                
+                move();           
+            }
         }
+        else 
+        {
+            atLake();
+            checkFood();
+            atLake();
+            xyz();
+            
+        }
+
     }
     
     /**
@@ -69,7 +84,7 @@ public class Greep extends Creature
      */
     public static String getAuthorName()
     {
-        return "Anonymous";  // write your name here!
+        return "BoB";  // write your name here!
     }
 
     /**
@@ -85,4 +100,47 @@ public class Greep extends Creature
             return "greep.png";
         }
     }
+    
+     private void atLake()
+    {
+        if(atWater())
+        {    
+            turn(Greenfoot.getRandomNumber(30));
+            xyz();
+        }
+        else
+        {
+            xyz();
+            
+        }
+        if(atWorldEdge())
+        {
+            turn(Greenfoot.getRandomNumber(8));
+            xyz();
+        }
+        if(atShip())
+        {
+            turn(Greenfoot.getRandomNumber(8));
+            xyz();
+            move();
+        }
+    }
+    public void xyz()
+    {
+        Greep greeps = (Greep) getOneIntersectingObject(Greep.class);       
+        if(!getFlag(1))
+        {
+            move();
+        }
+        if(getFlag(1))
+        {
+            stop();
+        }        
+    }
+    public void stop()
+    {
+        move(0);
+    }
+
+
 }
